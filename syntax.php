@@ -33,25 +33,28 @@ class syntax_plugin_imagelink extends DokuWiki_Syntax_Plugin {
         	$match = html_entity_decode(substr($match, 8, -2));
         	
         	// Split on pipes, $disp is new and optional
-        	@list($url, $img, $capt) = explode('|',$match,3);
+        	@list($url, $img, $capt, $clear) = explode('|',$match,4);
         	$matches = array();
+
+        	$cle = '';
+        	if ($clear != '') {
+        		$cle = '<div style="clear:both;"></div>';
+        	}
         	
-        	
-        	
-            return array('wiki', trim($url), trim($img), trim($capt));
+            return array('wiki', trim($url), trim($img), trim($capt), $cle);
         } else {
             return array('error', $this->getLang("gcal_Bad_iFrame"));  // this is an error
         } // matched {{conf>...
     }
 
     function render($mode, &$renderer, $data) {
-        list($style, $url, $img, $capt) = $data;
+        list($style, $url, $img, $capt, $cle) = $data;
         
         if($mode == 'xhtml'){
             // Two styles: wiki and error
             switch($style) {
                 case 'wiki':
-                	$renderer->doc .= "<div style='width: 106px; margin-right: 10px; float: left;'><a href='_media/".$url."'><img src='_media/".$img."' style ='width: 106px; height: 150px;'><div style='clear: both; text-align: center;'>".$capt."</div></a></div>";
+                	$renderer->doc .= "<div style='width: 106px; margin-right: 10px; float: left;'><a href='_media/".$url."'><img src='_media/".$img."' style ='width: 106px; height: 150px;'><div style='clear: both; text-align: center;'>".$capt."</div></a></div>".$cle;
                 						
                     break;
                 case 'error':
