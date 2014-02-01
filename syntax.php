@@ -53,7 +53,7 @@ class syntax_plugin_imagelink extends DokuWiki_Syntax_Plugin {
         if($mode == 'xhtml'){
             switch($style) {
                 case 'wiki':
-                	$renderer->doc .= "<div style='width: 106px; margin-right: 10px; float: left;'><a href='media/".$url."'><img src='media/".$img."' style ='width: 106px; height: 150px;'><div style='clear: both; text-align: center;'>".$capt."</div></a></div>".$cle;
+                	$renderer->doc .= "<div style='width: 106px; margin-right: 10px; float: left;'><a href='_media/".$url."'><img src='_media/".$img."' style ='width: 106px; height: 150px;'><div style='clear: both; text-align: center;'>".$capt."</div></a></div>".$cle;
                 						
                     break;
                 case 'error':
