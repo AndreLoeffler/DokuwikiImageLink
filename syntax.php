@@ -43,7 +43,7 @@ class syntax_plugin_imagelink extends DokuWiki_Syntax_Plugin {
         	
             return array('wiki', trim($url), trim($img), trim($capt), $cle);
         } else {
-            return array('error', $this->getLang("gcal_Bad_iFrame"));  // this is an error
+            return array('error', '');  // this is an error
         } // matched {{conf>...
     }
 
@@ -51,17 +51,16 @@ class syntax_plugin_imagelink extends DokuWiki_Syntax_Plugin {
         list($style, $url, $img, $capt, $cle) = $data;
         
         if($mode == 'xhtml'){
-            // Two styles: wiki and error
             switch($style) {
                 case 'wiki':
-                	$renderer->doc .= "<div style='width: 106px; margin-right: 10px; float: left;'><a href='_media/".$url."'><img src='_media/".$img."' style ='width: 106px; height: 150px;'><div style='clear: both; text-align: center;'>".$capt."</div></a></div>".$cle;
+                	$renderer->doc .= "<div style='width: 106px; margin-right: 10px; float: left;'><a href='media/".$url."'><img src='media/".$img."' style ='width: 106px; height: 150px;'><div style='clear: both; text-align: center;'>".$capt."</div></a></div>".$cle;
                 						
                     break;
                 case 'error':
-                    $renderer->doc .= "<div class='error'>$url</div>";
+                    $renderer->doc .= "<div class='error'>whoops</div>";
                     break;
                 default:
-                    $renderer->doc .= "<div class='error'>" . $this->getLang('gcal_Invalid_mode') . "</div>";
+                    $renderer->doc .= "<div class='error'>something went wrong</div>";
                     break;
             }
             return true;
